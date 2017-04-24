@@ -20,13 +20,13 @@ public class Grayscale {
 		File imageFile = new File("D:\\Users\\RPESCH\\Downloads\\TEST.jpg");
 		try{
 		BufferedImage image = ImageIO.read(imageFile);
-		//BufferedImage bwImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
-		//Graphics2D graphics = bwImage.createGraphics();
-	    //graphics.drawImage(image, 0, 0, null);
+		BufferedImage bwImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
+		Graphics2D graphics = bwImage.createGraphics();
+	    graphics.drawImage(image, 0, 0, null);
 		
-		//grayImage = getScaledImage(bwImage, bwImage.getWidth()+100, bwImage.getHeight()+100);
-	    testImage = getScaledImage(image, image.getWidth()+400, image.getHeight()+400);
-		grayImage = toGray(testImage);
+		grayImage = getScaledImage(bwImage, bwImage.getWidth()+300, bwImage.getHeight()+300);
+	   // testImage = getScaledImage(image, image.getWidth()+400, image.getHeight()+400);
+		//grayImage = toGray(testImage);
 		}catch(IOException e){
 			System.out.println(e);
 		}
