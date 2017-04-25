@@ -15,8 +15,14 @@ public class Main {
 		File test = new File("D:\\Users\\RPESCH\\Documents\\GitHub\\ID\\Tess4J\\Output4.jpg");
 		
 		try {
+			//instance.setPageSegMode(1);
+			//instance.setTessVariable("Z", "2");
+			
 			instance.setDatapath("D:\\Users\\RPESCH\\Documents\\GitHub\\ID\\Tess4J");
+			 
 			ImageIO.write(grayScale.grayImage, "jpg", test);
+			//instance.setPageSegMode(11);
+			
 			String result = instance.doOCR(grayScale.grayImage);
 			Parser.MRZcode = result;
 			Parser.Parser();			

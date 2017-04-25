@@ -18,12 +18,14 @@
  */
 package com.innovatrics.mrz;
 
+import com.innovatrics.mrz.records.DutchID;
 import com.innovatrics.mrz.types.MrzDate;
 import com.innovatrics.mrz.types.MrzFormat;
 import com.innovatrics.mrz.types.MrzSex;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -133,13 +135,65 @@ public class MrzParser {
      * @param str the raw MRZ substring.
      * @param fieldName (optional) field name. Used only when {@link MrzParseException} is thrown.
      */
-    public void checkDigit(int col, int row, String str, String fieldName) {
-        final char digit = (char) (computeCheckDigit(str) + '0');
+   /* public void checkDigit(int col, int row, String str, String fieldName) {
+    	ArrayList<Character> list = new ArrayList<Character>();
+    	String spaceString = "";
+    	System.out.println(col + " " + row + " " + str + " " +fieldName);
+    	final char digit = (char) (computeCheckDigit(str) + '0');
         final char checkDigit = rows[row].charAt(col);
         if (digit != checkDigit || (checkDigit != FILLER && checkDigit != '0' && digit == '0')) {
-            throw new MrzParseException("Check digit verification failed for " + fieldName + ": expected " + digit + " but got " + checkDigit, mrz, new MrzRange(col, col + 1, row), format);
+            // str aanpassen zodat er spaties tussen zitten
+        	for(int i = 0; i < str.length(); i++){
+        		list.add(str.charAt(i));
+        		list.add(' ');
+        	}
+        	for(Character c : list){
+        		spaceString += c.toString();
+        	}
+        	System.out.println(spaceString);
+        	checkDigit(col, row, spaceString, fieldName);
+        	System.out.println(fieldName);
+        	throw new MrzParseException("Check digit verification failed for " + fieldName + ": expected " + digit + " but got " + checkDigit, mrz, new MrzRange(col, col + 1, row), format);
         }
-    }
+    }*/
+    	 public void checkDigit(int col, int row, String str, String fieldName) {
+    	        final char digit = (char) (computeCheckDigit(str) + '0');
+    	        final char checkDigit = rows[row].charAt(col);
+    	        if (digit != checkDigit || (checkDigit != FILLER && checkDigit != '0' && digit == '0')) {
+    	            throw new MrzParseException("Check digit verification failed for " + fieldName + ": expected " + digit + " but got " + checkDigit, mrz, new MrzRange(col, col + 1, row), format);
+    	        }
+    	    } 
+
+	public String checkDocDigit(int col, int row, String str, String fieldName) {
+		final char digit = (char) (computeCheckDigit(str) + '0');
+		final char checkDigit = rows[row].charAt(col);
+		List<Character> charList = new ArrayList<>();
+		Character ambCharacter = 'Z';
+		Character corrCharacter = '2';
+		String correctString = "";
+		DutchID test = new DutchID();
+
+			for (int i = 0; i < str.length(); i++) {
+				charList.add(str.charAt(i));
+			}
+
+			if (digit != checkDigit || (checkDigit != FILLER && checkDigit != '0' && digit == '0')) {
+				for (int i = 0; i < charList.size(); i++) {
+					if (charList.get(i) == ambCharacter) {
+						charList.set(i, corrCharacter);
+					}
+				}
+
+				for (Character c : charList) {
+					correctString += c.toString();
+				}
+				
+			}
+			return correctString;
+
+		}
+
+	
 
     /**
      * Parses MRZ date.

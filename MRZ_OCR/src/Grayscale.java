@@ -17,15 +17,15 @@ public class Grayscale {
 	BufferedImage testImage;
 	
 	public Grayscale(){
-		File imageFile = new File("D:\\Users\\RPESCH\\Downloads\\TEST.jpg");
+		File imageFile = new File("D:\\Users\\RPESCH\\Downloads\\TESTHenk.jpg");
 		try{
 		BufferedImage image = ImageIO.read(imageFile);
 		BufferedImage bwImage = new BufferedImage(image.getWidth(), image.getHeight(), BufferedImage.TYPE_BYTE_BINARY);
 		Graphics2D graphics = bwImage.createGraphics();
 	    graphics.drawImage(image, 0, 0, null);
 		
-		grayImage = getScaledImage(bwImage, bwImage.getWidth()+300, bwImage.getHeight()+300);
-	   // testImage = getScaledImage(image, image.getWidth()+400, image.getHeight()+400);
+		grayImage = getScaledImage(bwImage, bwImage.getWidth()+400, bwImage.getHeight()+200);
+	    //testImage = getScaledImage(image, image.getWidth()+200, image.getHeight()+200);
 		//grayImage = toGray(testImage);
 		}catch(IOException e){
 			System.out.println(e);
